@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personality Service Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0d0d0f 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #d4a574, #f0c987);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .card h2 {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* User ID Section */
+        .user-section {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d4a574, #c49464);
+            color: #0d0d0f;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(212, 165, 116, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Question Section */
+        .scenario {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #fff;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: rgba(212, 165, 116, 0.1);
+            border-left: 3px solid #d4a574;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            color: #e0e0e0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .option:hover {
+            background: rgba(212, 165, 116, 0.15);
+            border-color: rgba(212, 165, 116, 0.4);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(212, 165, 116, 0.2);
+            border-color: #d4a574;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4a574, #f0c987);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Summary Section */
+        .summary-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #fff;
+            padding: 20px;
+            background: rgba(212, 165, 116, 0.08);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .confidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .dimension {
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .dimension-name {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 6px;
+            text-transform: capitalize;
+        }
+
+        .dimension-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .dimension-fill {
+            height: 100%;
+            background: #d4a574;
+            border-radius: 4px;
+        }
+
+        /* Status Messages */
+        .status {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+
+        .status.success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: #81c784;
+        }
+
+        .status.error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+            color: #ef9a9a;
+        }
+
+        .status.info {
+            background: rgba(33, 150, 243, 0.2);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            color: #90caf9;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .complete-message {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .complete-message h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #d4a574;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #d4a574;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Personality Intelligence Tester</h1>
+
+        <!-- Step 1: User Creation -->
+        <div class="card" id="userSection">
+            <h2>Step 1: Create User Profile</h2>
+            <div class="user-section">
+                <input type="text" id="userId" placeholder="Enter a user ID (e.g., test-user-001)" value="test-user-001">
+                <button class="btn-primary" onclick="createProfile()">Create Profile</button>
+            </div>
+            <div id="userStatus"></div>
+        </div>
+
+        <!-- Step 2: Questions -->
+        <div class="card hidden" id="questionSection">
+            <h2>Step 2: Answer Questions</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="question-meta">
+                <span id="questionCount">Question 1 of 8</span>
+                <span id="questionId">Q_XX_00</span>
+            </div>
+            <div class="scenario" id="scenario">Loading question...</div>
+            <div class="options" id="options"></div>
+            <div class="action-buttons">
+                <button class="btn-secondary" onclick="skipQuestion()">Skip This Question</button>
+            </div>
+        </div>
+
+        <!-- Complete State -->
+        <div class="card hidden" id="completeSection">
+            <div class="complete-message">
+                <h3>🎉 All Questions Answered!</h3>
+                <p>You've completed the onboarding questionnaire.</p>
+                <button class="btn-primary" onclick="getSummary()" style="margin-top: 20px">
+                    Generate Personality Summary
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: Summary -->
+        <div class="card hidden" id="summarySection">
+            <h2>Your Personality Summary</h2>
+            <div class="summary-text" id="summaryText">Loading...</div>
+            <h2 style="margin-top: 20px;">Confidence Levels</h2>
+            <div class="confidence-grid" id="confidenceGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000';
+        let currentQuestion = null;
+        let questionsAnswered = 0;
+
+        async function createProfile() {
+            const userId = document.getElementById('userId').value.trim();
+            if (!userId) {
+                showStatus('userStatus', 'Please enter a user ID', 'error');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/profile/init`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId })
+                });
+                
+                const data = await res.json();
+                
+                if (res.ok) {
+                    showStatus('userStatus', `✓ Profile created for "${userId}"`, 'success');
+                    setTimeout(() => getNextQuestion(), 500);
+                } else if (res.status === 409) {
+                    showStatus('userStatus', `Profile already exists. Loading questions...`, 'info');
+                    setTimeout(() => getNextQuestion(), 500);
+                } else {
+                    showStatus('userStatus', data.error || 'Failed to create profile', 'error');
+                }
+            } catch (err) {
+                showStatus('userStatus', 'Connection error. Is the server running?', 'error');
+            }
+        }
+
+        async function getNextQuestion() {
+            const userId = document.getElementById('userId').value.trim();
+            
+            try {
+                const res = await fetch(`${API_BASE}/question/next?userId=${userId}&mode=ONBOARDING`);
+                const data = await res.json();
+
+                if (data.complete) {
+                    showComplete();
+                    return;
+                }
+
+                currentQuestion = data.question;
+                questionsAnswered = data.questionsAnswered;
+                
+                displayQuestion(data.question, data.questionsAnswered);
+                
+                document.getElementById('questionSection').classList.remove('hidden');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function displayQuestion(question, answered) {
+            document.getElementById('questionId').textContent = question.id;
+            document.getElementById('questionCount').textContent = `Question ${answered + 1} of 8`;
+            document.getElementById('progressFill').style.width = `${(answered / 8) * 100}%`;
+            document.getElementById('scenario').textContent = question.scenario;
+
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+
+            question.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option';
+                btn.textContent = opt.label;
+                btn.onclick = () => submitAnswer(index);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        async function submitAnswer(optionIndex) {
+            const userId = document.getElementById('userId').value.trim();
+            
+            // Highlight selected option
+            document.querySelectorAll('.option').forEach((btn, i) => {
+                btn.classList.toggle('selected', i === optionIndex);
+            });
+
+            try {
+                const res = await fetch(`${API_BASE}/answer`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId,
+                        questionId: currentQuestion.id,
+                        selectedOption: optionIndex
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.nextQuestion) {
+                    setTimeout(() => {
+                        currentQuestion = data.nextQuestion;
+                        questionsAnswered = data.questionsAnswered;
+                        displayQuestion(data.nextQuestion, data.questionsAnswered);
+                    }, 300);
+                } else {
+                    showComplete();
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function skipQuestion() {
+            const userId = document.getElementById('userId').value.trim();
+
+            try {
+                const res = await fetch(`${API_BASE}/answer`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId,
+                        questionId: currentQuestion.id,
+                        skip: true
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.nextQuestion) {
+                    currentQuestion = data.nextQuestion;
+                    questionsAnswered = data.questionsAnswered;
+                    displayQuestion(data.nextQuestion, data.questionsAnswered);
+                } else {
+                    showComplete();
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function showComplete() {
+            document.getElementById('questionSection').classList.add('hidden');
+            document.getElementById('completeSection').classList.remove('hidden');
+        }
+
+        async function getSummary() {
+            const userId = document.getElementById('userId').value.trim();
+            
+            document.getElementById('completeSection').classList.add('hidden');
+            document.getElementById('summarySection').classList.remove('hidden');
+            document.getElementById('summaryText').innerHTML = '<span class="loader"></span> Generating your personality summary...';
+
+            try {
+                const res = await fetch(`${API_BASE}/summary?userId=${userId}`);
+                const data = await res.json();
+
+                document.getElementById('summaryText').textContent = data.summary;
+
+                const grid = document.getElementById('confidenceGrid');
+                grid.innerHTML = '';
+
+                if (data.confidence && data.confidence.dimensions) {
+                    for (const [dim, conf] of Object.entries(data.confidence.dimensions)) {
+                        const dimDiv = document.createElement('div');
+                        dimDiv.className = 'dimension';
+                        dimDiv.innerHTML = `
+                            <div class="dimension-name">${dim.replace(/_/g, ' ')}</div>
+                            <div class="dimension-bar">
+                                <div class="dimension-fill" style="width: ${conf * 100}%"></div>
+                            </div>
+                        `;
+                        grid.appendChild(dimDiv);
+                    }
+                }
+            } catch (err) {
+                document.getElementById('summaryText').textContent = 'Error generating summary. Make sure your OpenAI API key is configured.';
+            }
+        }
+
+        function showStatus(elementId, message, type) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+    </script>
+</body>
+</html>

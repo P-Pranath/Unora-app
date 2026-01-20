@@ -1,0 +1,12 @@
+# Assets directory
+# Structure:
+#
+# assets/
+# ├── fonts/           # Custom font files (.ttf, .otf)
+# ├── icons/           # SVG icons or small PNG icons
+# │   └── index.ts     # Icon exports
+# ├── images/          # Raster images (PNG, JPG, WebP)
+# │   └── index.ts     # Image exports
+# └── lottie/          # Lottie animation JSON files
+#     └── index.ts     # Animation exports
+

@@ -1,0 +1,18 @@
+FROM golang:1.25
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+  netcat-openbsd \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN go install github.com/pressly/goose/v3/cmd/goose@latest
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+CMD ["sh", "-c", "goose -dir ./migrations/versions mysql \"${DB_USER}:${DB_PASSWORD}@tcp(${DB_HOST}:${DB_PORT})/${DB_NAME}?parseTime=true\" up"]

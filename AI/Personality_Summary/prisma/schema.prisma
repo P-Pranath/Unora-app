@@ -1,0 +1,105 @@
+// ============================================================================
+// Prisma Schema - Personality Intelligence Service
+// ============================================================================
+// This schema defines the database structure for storing user personality
+// profiles, dimension states, questions, and answer logs.
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// User Profile
+// ============================================================================
+// Represents a user in the personality system. Each user has exactly one
+// profile and multiple personality state entries (one per dimension).
+
+model UserProfile {
+  id               String             @id @default(uuid())
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  
+  // Relations
+  personalityState PersonalityState[]
+  answerLogs       AnswerLog[]
+  
+  // Track the last dimension asked to avoid repetition
+  lastDimensionAsked String?
+  
+  // Track the total questions answered for this user
+  questionsAnswered  Int              @default(0)
+}
+
+// ============================================================================
+// Personality State
+// ============================================================================
+// Stores the current score and confidence for each personality dimension.
+// Each user has exactly 7 personality state entries (one per dimension).
+// 
+// Score: 0.0 - 1.0 (where 0.5 is neutral/center)
+// Confidence: 0.0 - 1.0 (how certain we are about the score)
+
+model PersonalityState {
+  id         String   @id @default(uuid())
+  userId     String
+  dimension  String   // One of the 7 dimensions
+  score      Float    @default(0.5)  // 0.0 - 1.0, starts at neutral
+  confidence Float    @default(0.1)  // 0.0 - 1.0, starts low
+  updatedAt  DateTime @updatedAt
+  
+  // Relations
+  user       UserProfile @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Unique constraint: one state per dimension per user
+  @@unique([userId, dimension])
+  @@index([userId])
+  @@index([dimension])
+}
+
+// ============================================================================
+// Question
+// ============================================================================
+// Stores situational questions for personality assessment.
+// Each question targets 1-3 dimensions and has multiple options with impacts.
+
+model Question {
+  id               String   @id
+  scenarioText     String
+  dimensionTargets String   // JSON array of dimension names (1-3)
+  options          String   // JSON array of options with labels and impacts
+  createdAt        DateTime @default(now())
+  
+  // Relations
+  answerLogs       AnswerLog[]
+  
+  @@index([dimensionTargets])
+}
+
+// ============================================================================
+// Answer Log
+// ============================================================================
+// Records each answer submitted by a user, including skips.
+// Used for preventing repeat questions and auditing.
+
+model AnswerLog {
+  id             String   @id @default(uuid())
+  userId         String
+  questionId     String
+  selectedOption Int?     // Index of selected option, null if skipped
+  skipped        Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  
+  // Relations
+  user           UserProfile @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question       Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([questionId])
+  @@index([userId, questionId])
+}

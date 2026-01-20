@@ -1,0 +1,11 @@
+# Navigation configuration directory
+# Structure:
+#
+# navigation/
+# ├── RootNavigator.tsx     # Root navigation component
+# ├── stacks/               # Stack navigators (Auth, Main, etc.)
+# ├── tabs/                 # Tab navigators
+# ├── linking.ts            # Deep linking configuration
+# ├── navigationRef.ts      # Imperative navigation reference
+# └── types.ts              # Navigation TypeScript types
+

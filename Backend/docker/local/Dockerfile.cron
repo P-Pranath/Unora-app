@@ -1,0 +1,20 @@
+FROM golang:1.25
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+  netcat-openbsd \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN go install github.com/air-verse/air@latest
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+RUN mkdir -p /app/tmp
+
+CMD ["sh", "-c", "air -c .air.cron.toml || (echo 'Air failed to start' && tail -f /dev/null)"]

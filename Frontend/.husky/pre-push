@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-push checks..."
+
+# Run ESLint
+echo "📝 Checking ESLint..."
+yarn lint
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint check failed. Please fix the errors before pushing."
+  exit 1
+fi
+
+# Run Prettier check
+echo "🎨 Checking Prettier..."
+yarn check-format
+if [ $? -ne 0 ]; then
+  echo "❌ Prettier check failed. Run 'yarn format' to fix formatting."
+  exit 1
+fi
+
+# Run TypeScript check
+echo "📘 Checking TypeScript..."
+yarn typecheck
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript check failed. Please fix type errors before pushing."
+  exit 1
+fi
+
+echo "✅ All pre-push checks passed!"
+

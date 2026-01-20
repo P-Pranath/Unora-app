@@ -1,0 +1,40 @@
+{
+  "name": "personality-service",
+  "version": "1.0.0",
+  "description": "Personality Intelligence Service for Unora - Infers probabilistic personality dimensions through situational questions",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "start": "node dist/index.js",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "ts-node prisma/seed.ts",
+    "db:reset": "rimraf prisma/dev.db && prisma db push && ts-node prisma/seed.ts",
+    "setup": "npm run db:generate && npm run db:push && npm run db:seed"
+  },
+  "keywords": [
+    "personality",
+    "unora",
+    "ai",
+    "microservice"
+  ],
+  "author": "Unora",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^5.7.0",
+    "express": "^4.18.2",
+    "openai": "^4.24.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.0",
+    "@types/uuid": "^9.0.7",
+    "prisma": "^5.7.0",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.0"
+  }
+}

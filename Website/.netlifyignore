@@ -1,0 +1,4 @@
+# Ignore files that might trigger false positive secret scans
+SETUP_INSTRUCTIONS.md
+.env.example
+

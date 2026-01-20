@@ -1,0 +1,2 @@
+[build]
+  ignore = "SETUP_INSTRUCTIONS.md"

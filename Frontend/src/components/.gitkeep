@@ -1,0 +1,10 @@
+# Shared UI components directory (Atomic Design)
+# Structure:
+#
+# components/
+# ├── atoms/           # Basic building blocks (Button, Input, Text, Icon)
+# ├── molecules/       # Combinations of atoms (FormField, Card, SearchBar)
+# ├── organisms/       # Complex UI sections (Header, Modal, Form)
+# ├── layout/          # Screen-level wrappers (Screen, Content, ScrollView)
+# └── feedback/        # Loading states, errors, toasts
+

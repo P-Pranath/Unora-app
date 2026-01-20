@@ -1,0 +1,4917 @@
+basePath: /api/v1
+definitions:
+  github_com_UnoraApp_be_internal_admin_dto.AdjustCreditsRequest:
+    description: Adjust user credit balance
+    properties:
+      amount:
+        example: 50
+        type: integer
+      description:
+        example: 'Support ticket #123'
+        maxLength: 200
+        type: string
+      reason:
+        example: Compensation for issue
+        maxLength: 500
+        type: string
+    required:
+    - amount
+    - reason
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdjustStreakRequest:
+    description: Adjust streak day
+    properties:
+      newDay:
+        example: 7
+        maximum: 15
+        minimum: 0
+        type: integer
+      reason:
+        example: Support adjustment
+        maxLength: 500
+        type: string
+    required:
+    - newDay
+    - reason
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminConnectionListResponse:
+    description: Paginated list of connections
+    properties:
+      connections:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminConnectionResponse'
+        type: array
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      total:
+        type: integer
+      totalPages:
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminConnectionResponse:
+    description: Connection details for admin
+    properties:
+      connectionStatus:
+        example: active
+        type: string
+      createdAt:
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      serverType:
+        example: partner
+        type: string
+      streakDay:
+        example: 7
+        type: integer
+      streakState:
+        example: active
+        type: string
+      terminatedAt:
+        type: string
+      userAId:
+        type: string
+      userAName:
+        example: John
+        type: string
+      userBId:
+        type: string
+      userBName:
+        example: Jane
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminPaymentListResponse:
+    description: Paginated list of payment orders
+    properties:
+      orders:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminPaymentOrderResponse'
+        type: array
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      total:
+        type: integer
+      totalPages:
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminPaymentOrderResponse:
+    description: Payment order details for admin
+    properties:
+      amount:
+        example: 9900
+        type: integer
+      createdAt:
+        type: string
+      creditsToAdd:
+        example: 55
+        type: integer
+      currency:
+        example: INR
+        type: string
+      failureReason:
+        type: string
+      id:
+        type: string
+      orderStatus:
+        example: paid
+        type: string
+      packageId:
+        type: string
+      packageName:
+        type: string
+      paidAt:
+        type: string
+      razorpayOrderId:
+        type: string
+      razorpayPaymentId:
+        type: string
+      userEmail:
+        type: string
+      userId:
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminPhotoListResponse:
+    description: Paginated list of photos for moderation
+    properties:
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      photos:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminPhotoResponse'
+        type: array
+      total:
+        type: integer
+      totalPages:
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminPhotoResponse:
+    description: Photo details for moderation
+    properties:
+      flagReason:
+        type: string
+      id:
+        type: string
+      isFlagged:
+        example: false
+        type: boolean
+      isVerified:
+        example: false
+        type: boolean
+      photoUrl:
+        type: string
+      slotNumber:
+        example: 1
+        type: integer
+      uploadedAt:
+        type: string
+      userId:
+        type: string
+      userName:
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminReportListResponse:
+    description: Paginated list of reports
+    properties:
+      page:
+        example: 1
+        type: integer
+      pageSize:
+        example: 20
+        type: integer
+      reports:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminReportResponse'
+        type: array
+      total:
+        example: 25
+        type: integer
+      totalPages:
+        example: 2
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminReportResponse:
+    description: Report details for admin review
+    properties:
+      adminNotes:
+        example: Reviewed, evidence found
+        type: string
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      description:
+        example: User sent threatening messages
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      reason:
+        example: harassment
+        type: string
+      referenceId:
+        example: msg_123
+        type: string
+      referenceType:
+        example: message
+        type: string
+      reportedId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      reportedName:
+        example: Jane
+        type: string
+      reporterId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      reporterName:
+        example: John
+        type: string
+      reviewedAt:
+        type: string
+      status:
+        example: pending
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminStreakListResponse:
+    description: Paginated list of streaks
+    properties:
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      streaks:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminStreakResponse'
+        type: array
+      total:
+        type: integer
+      totalPages:
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminStreakResponse:
+    description: Streak details for admin
+    properties:
+      connectionId:
+        type: string
+      createdAt:
+        type: string
+      currentDay:
+        example: 7
+        type: integer
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      lastCheckInAt:
+        type: string
+      streakState:
+        example: active
+        type: string
+      userAName:
+        example: John
+        type: string
+      userBName:
+        example: Jane
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminUserListResponse:
+    description: Paginated list of users
+    properties:
+      page:
+        example: 1
+        type: integer
+      pageSize:
+        example: 20
+        type: integer
+      total:
+        example: 100
+        type: integer
+      totalPages:
+        example: 5
+        type: integer
+      users:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminUserResponse'
+        type: array
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AdminUserResponse:
+    description: User details for admin
+    properties:
+      accountStatus:
+        example: active
+        type: string
+      connectionCount:
+        example: 5
+        type: integer
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      creditBalance:
+        example: 150
+        type: integer
+      dateOfBirth:
+        type: string
+      email:
+        example: user@example.com
+        type: string
+      firstName:
+        example: John
+        type: string
+      gender:
+        example: male
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      lastActiveAt:
+        type: string
+      lastName:
+        example: Doe
+        type: string
+      onboardingStatus:
+        example: completed
+        type: string
+      phoneNumber:
+        example: "+919876543210"
+        type: string
+      photoCount:
+        example: 3
+        type: integer
+      reportsReceived:
+        example: 0
+        type: integer
+      suspendedAt:
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AuditLogListResponse:
+    description: Paginated list of audit logs
+    properties:
+      logs:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AuditLogResponse'
+        type: array
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      total:
+        type: integer
+      totalPages:
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.AuditLogResponse:
+    description: Audit log entry
+    properties:
+      action:
+        example: suspend_user
+        type: string
+      adminIdentifier:
+        type: string
+      createdAt:
+        type: string
+      errorMessage:
+        type: string
+      id:
+        type: string
+      ipAddress:
+        type: string
+      resourceId:
+        type: string
+      resourceType:
+        example: user
+        type: string
+      success:
+        type: boolean
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.ConnectionStatsResponse:
+    description: Connection and matching stats
+    properties:
+      activeConnections:
+        example: 3000
+        type: integer
+      activeStreaks:
+        example: 2500
+        type: integer
+      averageStreakDay:
+        example: 7.5
+        type: number
+      completedStreaks:
+        example: 500
+        type: integer
+      connectionsThisWeek:
+        example: 200
+        type: integer
+      totalConnections:
+        example: 5000
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.CreateHobbyOptionRequest:
+    description: Create a new hobby option
+    properties:
+      category:
+        example: sports
+        type: string
+      description:
+        maxLength: 200
+        type: string
+      iconName:
+        example: basketball
+        maxLength: 50
+        type: string
+      name:
+        example: Basketball
+        maxLength: 100
+        type: string
+    required:
+    - category
+    - name
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.CreateRevealMilestoneRequest:
+    description: Create a new reveal milestone
+    properties:
+      creditCost:
+        example: 0
+        type: integer
+      dayRequired:
+        example: 5
+        minimum: 1
+        type: integer
+      description:
+        maxLength: 500
+        type: string
+      iconName:
+        example: sparkles
+        maxLength: 50
+        type: string
+      revealNumber:
+        example: 1
+        minimum: 1
+        type: integer
+      revealType:
+        example: personality
+        type: string
+      title:
+        example: Personality Reveal
+        maxLength: 100
+        type: string
+    required:
+    - dayRequired
+    - revealNumber
+    - revealType
+    - title
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.CreateServerRequest:
+    description: Create a new server type
+    properties:
+      displayName:
+        example: Partner
+        maxLength: 50
+        type: string
+      iconName:
+        example: heart
+        maxLength: 50
+        type: string
+      serverType:
+        enum:
+        - partner
+        - friend
+        - growth
+        example: partner
+        type: string
+      sortOrder:
+        example: 1
+        type: integer
+    required:
+    - displayName
+    - iconName
+    - serverType
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.DashboardStatsResponse:
+    description: Dashboard statistics for admin
+    properties:
+      connectionStats:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.ConnectionStatsResponse'
+      paymentStats:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.PaymentStatsResponse'
+      reportStats:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.ReportStatsResponse'
+      userStats:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.UserStatsResponse'
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.PaymentStatsResponse:
+    description: Payment and revenue stats
+    properties:
+      creditsInCirculation:
+        example: 100000
+        type: integer
+      revenueThisMonth:
+        example: 50000
+        type: integer
+      revenueToday:
+        example: 5000
+        type: integer
+      totalRevenue:
+        description: In paise
+        example: 500000
+        type: integer
+      totalTransactions:
+        example: 1000
+        type: integer
+      transactionsToday:
+        example: 50
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.RefundPaymentRequest:
+    description: Refund a payment
+    properties:
+      reason:
+        example: Customer request
+        maxLength: 500
+        type: string
+    required:
+    - reason
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.RejectPhotoRequest:
+    description: Reject a photo
+    properties:
+      reason:
+        example: Inappropriate content
+        maxLength: 500
+        type: string
+    required:
+    - reason
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.ReportStatsResponse:
+    description: Report and moderation stats
+    properties:
+      actionsTaken:
+        example: 50
+        type: integer
+      dismissedReports:
+        example: 30
+        type: integer
+      pendingReports:
+        example: 15
+        type: integer
+      reportsThisWeek:
+        example: 20
+        type: integer
+      totalReports:
+        example: 100
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.ResetStreakRequest:
+    description: Reset a streak
+    properties:
+      reason:
+        example: Testing purposes
+        maxLength: 500
+        type: string
+    required:
+    - reason
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.ReviewReportRequest:
+    description: Review and take action on a report
+    properties:
+      action:
+        enum:
+        - warn
+        - suspend_7d
+        - suspend_30d
+        - suspend_permanent
+        - delete
+        example: suspend_7d
+        type: string
+      adminNotes:
+        example: Evidence confirmed, user suspended
+        maxLength: 1000
+        type: string
+      status:
+        enum:
+        - reviewed
+        - action_taken
+        - dismissed
+        example: action_taken
+        type: string
+    required:
+    - status
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.SuspendUserRequest:
+    description: Suspend a user account
+    properties:
+      duration:
+        description: '"permanent", "7d", "30d", etc.'
+        example: 7d
+        type: string
+      reason:
+        example: Violation of community guidelines
+        maxLength: 500
+        type: string
+    required:
+    - duration
+    - reason
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.TerminateConnectionRequest:
+    description: Terminate a connection
+    properties:
+      reason:
+        example: Moderation action
+        maxLength: 500
+        type: string
+    required:
+    - reason
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.UpdateCreditPackageRequest:
+    description: Update credit package details
+    properties:
+      badgeText:
+        example: Popular
+        type: string
+      bonusCredits:
+        example: 5
+        type: integer
+      creditAmount:
+        example: 50
+        type: integer
+      description:
+        type: string
+      discountPercent:
+        example: 10
+        type: number
+      isActive:
+        example: true
+        type: boolean
+      isPopular:
+        example: true
+        type: boolean
+      name:
+        example: Starter Pack
+        maxLength: 100
+        type: string
+      priceAmount:
+        example: 9900
+        type: integer
+      sortOrder:
+        example: 1
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.UpdateRevealMilestoneRequest:
+    description: Update reveal milestone
+    properties:
+      creditCost:
+        example: 0
+        type: integer
+      dayRequired:
+        example: 5
+        type: integer
+      description:
+        type: string
+      iconName:
+        example: sparkles
+        type: string
+      isActive:
+        example: true
+        type: boolean
+      title:
+        example: Personality Reveal
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.UpdateServerRequest:
+    description: Update server details
+    properties:
+      displayName:
+        example: Partner
+        maxLength: 50
+        type: string
+      iconName:
+        example: heart
+        maxLength: 50
+        type: string
+      sortOrder:
+        example: 1
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_admin_dto.UserStatsResponse:
+    description: User registration and activity stats
+    properties:
+      activeThisWeek:
+        example: 2000
+        type: integer
+      activeToday:
+        example: 500
+        type: integer
+      newThisMonth:
+        example: 500
+        type: integer
+      newThisWeek:
+        example: 150
+        type: integer
+      onboardingPending:
+        example: 100
+        type: integer
+      suspendedUsers:
+        example: 25
+        type: integer
+      totalUsers:
+        example: 10000
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_auth_dto.AuthResponse:
+    description: Successful authentication response with tokens and user info
+    properties:
+      accessToken:
+        description: JWT access token - use in Authorization header for protected
+          routes
+        example: eyJhbGciOiJIUzI1NiIs...
+        type: string
+      expiresIn:
+        description: Access token expiry time in seconds
+        example: 86400
+        type: integer
+      refreshToken:
+        description: Refresh token - use to get new access token when it expires
+        example: eyJhbGciOiJIUzI1NiIs...
+        type: string
+      tokenType:
+        description: Token type - always "Bearer"
+        example: Bearer
+        type: string
+      user:
+        allOf:
+        - $ref: '#/definitions/github_com_UnoraApp_be_internal_auth_dto.UserResponse'
+        description: Authenticated user information
+    type: object
+  github_com_UnoraApp_be_internal_auth_dto.GoogleOAuthRequest:
+    description: Google OAuth login request - send ID token from mobile app
+    properties:
+      idToken:
+        description: Google ID token obtained from Google Sign-In SDK on mobile
+        example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+        type: string
+    required:
+    - idToken
+    type: object
+  github_com_UnoraApp_be_internal_auth_dto.RefreshTokenRequest:
+    description: Token refresh request
+    properties:
+      refreshToken:
+        description: Refresh token received from login
+        example: eyJhbGciOiJIUzI1NiIs...
+        type: string
+    required:
+    - refreshToken
+    type: object
+  github_com_UnoraApp_be_internal_auth_dto.RefreshTokenResponse:
+    description: Token refresh response with new access token
+    properties:
+      accessToken:
+        description: New JWT access token
+        example: eyJhbGciOiJIUzI1NiIs...
+        type: string
+      expiresIn:
+        description: Token expiry time in seconds
+        example: 86400
+        type: integer
+      tokenType:
+        description: Token type - always "Bearer"
+        example: Bearer
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_auth_dto.TokenPayload:
+    description: JWT token payload containing user identification
+    properties:
+      email:
+        example: user@gmail.com
+        type: string
+      provider:
+        example: google
+        type: string
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_auth_dto.UserResponse:
+    description: User profile information
+    properties:
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      email:
+        example: user@gmail.com
+        type: string
+      firstName:
+        example: John
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      lastName:
+        example: Doe
+        type: string
+      name:
+        example: John Doe
+        type: string
+      picture:
+        example: https://lh3.googleusercontent.com/...
+        type: string
+      provider:
+        example: google
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.CardHobby:
+    description: Hobby displayed on discovery card
+    properties:
+      category:
+        example: Creative
+        type: string
+      iconName:
+        example: camera
+        type: string
+      microDescription:
+        example: Landscape photography
+        type: string
+      name:
+        example: Photography
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.CardPhoto:
+    description: Photo displayed on discovery card
+    properties:
+      displayOrder:
+        example: 1
+        type: integer
+      isFacePhoto:
+        example: true
+        type: boolean
+      url:
+        example: https://storage.example.com/photo.jpg
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.CardUserInfo:
+    description: Basic user info displayed on discovery card
+    properties:
+      age:
+        example: 28
+        type: integer
+      bio:
+        example: Love hiking and photography
+        type: string
+      city:
+        example: Mumbai
+        type: string
+      firstName:
+        example: John
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      intentStatement:
+        example: Looking for genuine connections
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.ConnectionDetailResponse:
+    description: Full connection details with streak and reveals
+    properties:
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      partner:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.ConnectionPartner'
+      reveals:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.RevealSummary'
+        type: array
+      serverType:
+        example: partner
+        type: string
+      status:
+        example: active
+        type: string
+      streak:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.StreakSummary'
+      streakDetails:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.StreakDetailResponse'
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.ConnectionPartner:
+    description: Partner info for connection display
+    properties:
+      age:
+        example: 28
+        type: integer
+      bio:
+        example: Love hiking and photography
+        type: string
+      city:
+        example: Mumbai
+        type: string
+      firstName:
+        example: John
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      photoUrl:
+        example: https://storage.example.com/photo.jpg
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.ConnectionResponse:
+    description: Active connection between users
+    properties:
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      partner:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.ConnectionPartner'
+      serverType:
+        example: partner
+        type: string
+      status:
+        example: active
+        type: string
+      streak:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.StreakSummary'
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.DiscoveryBatchResponse:
+    description: Batch of 5 discovery cards
+    properties:
+      batchStatus:
+        example: active
+        type: string
+      cards:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.DiscoveryCardResponse'
+        type: array
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      expiresAt:
+        example: "2024-01-02T00:00:00Z"
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      serverType:
+        example: partner
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.DiscoveryCardResponse:
+    description: Discovery card showing a potential match
+    properties:
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      displayOrder:
+        example: 1
+        type: integer
+      hobbies:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.CardHobby'
+        type: array
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      photos:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.CardPhoto'
+        type: array
+      user:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.CardUserInfo'
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.ExpressInterestRequest:
+    description: Express interest in a discovery card
+    properties:
+      discoveryCardId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - discoveryCardId
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.FilterConfig:
+    description: Filter configuration for discovery matching
+    properties:
+      ageMax:
+        example: 35
+        type: integer
+      ageMin:
+        example: 21
+        type: integer
+      cities:
+        example:
+        - '["Mumbai"'
+        - ' "Delhi"]'
+        items:
+          type: string
+        type: array
+      distance:
+        example: 50
+        type: integer
+      genders:
+        example:
+        - '["male"'
+        - ' "female"]'
+        items:
+          type: string
+        type: array
+      hobbies:
+        example:
+        - '["hobby-option-id-1"]'
+        items:
+          type: string
+        type: array
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.FilterResponse:
+    description: User's filter settings for a server
+    properties:
+      config:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.FilterConfig'
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      isPending:
+        example: false
+        type: boolean
+      serverType:
+        example: partner
+        type: string
+      updatedAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.InterestResponse:
+    description: Interest expression data
+    properties:
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      matchedAt:
+        example: "2024-01-02T00:00:00Z"
+        type: string
+      serverType:
+        example: partner
+        type: string
+      status:
+        example: pending
+        type: string
+      user:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.InterestUserInfo'
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.InterestUserInfo:
+    description: User info for interest display
+    properties:
+      age:
+        example: 28
+        type: integer
+      city:
+        example: Mumbai
+        type: string
+      firstName:
+        example: John
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      photoUrl:
+        example: https://storage.example.com/photo.jpg
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.RefreshStatusResponse:
+    description: Status of discovery refresh availability
+    properties:
+      canRefresh:
+        example: true
+        type: boolean
+      refreshAvailableAt:
+        example: "2024-01-01T12:00:00Z"
+        type: string
+      secondsUntilRefresh:
+        example: 3600
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.RevealSummary:
+    description: Brief reveal milestone status
+    properties:
+      dayRequired:
+        example: 5
+        type: integer
+      number:
+        example: 1
+        type: integer
+      status:
+        example: locked
+        type: string
+      type:
+        example: personality
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.ServerResponse:
+    description: Server information for intent-based discovery
+    properties:
+      displayName:
+        example: Looking for Partner
+        type: string
+      iconName:
+        example: HeartStraight
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      serverType:
+        example: partner
+        type: string
+      sortOrder:
+        example: 1
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.StreakDetailResponse:
+    description: Full streak information
+    properties:
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      currentDay:
+        example: 5
+        type: integer
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      myCheckInToday:
+        example: true
+        type: boolean
+      partnerCheckInToday:
+        example: false
+        type: boolean
+      recoveryDeadline:
+        type: string
+      resetCount:
+        example: 0
+        type: integer
+      state:
+        example: active
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.StreakSummary:
+    description: Brief streak status
+    properties:
+      currentDay:
+        example: 5
+        type: integer
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      needsCheckIn:
+        example: true
+        type: boolean
+      state:
+        example: active
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_discovery_dto.UpdateFilterRequest:
+    description: Update filter settings for a server
+    properties:
+      config:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.FilterConfig'
+    required:
+    - config
+    type: object
+  github_com_UnoraApp_be_internal_monetization_dto.CreateOrderRequest:
+    description: Create payment order for credit package
+    properties:
+      packageId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - packageId
+    type: object
+  github_com_UnoraApp_be_internal_monetization_dto.CreateOrderResponse:
+    description: Razorpay order details for payment
+    properties:
+      amount:
+        example: 9900
+        type: integer
+      creditsToAdd:
+        example: 55
+        type: integer
+      currency:
+        example: INR
+        type: string
+      orderId:
+        example: order_ABC123
+        type: string
+      packageName:
+        example: Starter Pack
+        type: string
+      razorpayKey:
+        example: rzp_test_xxx
+        type: string
+      userEmail:
+        example: user@example.com
+        type: string
+      userPhone:
+        example: "9876543210"
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_monetization_dto.CreditBalanceResponse:
+    description: User's credit balance
+    properties:
+      balance:
+        example: 150
+        type: integer
+      lifetimeEarned:
+        example: 200
+        type: integer
+      lifetimeSpent:
+        example: 50
+        type: integer
+      pendingCredits:
+        example: 0
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_monetization_dto.CreditPackageResponse:
+    description: Credit package available for purchase
+    properties:
+      badgeText:
+        example: Most Popular
+        type: string
+      bonusCredits:
+        example: 5
+        type: integer
+      creditAmount:
+        example: 50
+        type: integer
+      currency:
+        example: INR
+        type: string
+      description:
+        example: Get started with 50 credits
+        type: string
+      discountPercent:
+        example: 10
+        type: number
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      isPopular:
+        example: true
+        type: boolean
+      name:
+        example: Starter Pack
+        type: string
+      priceAmount:
+        example: 9900
+        type: integer
+      priceDisplay:
+        example: ₹99
+        type: string
+      totalCredits:
+        example: 55
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_monetization_dto.CreditTransactionResponse:
+    description: Credit transaction history entry
+    properties:
+      balanceAfter:
+        example: 150
+        type: integer
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      creditAmount:
+        example: 50
+        type: integer
+      description:
+        example: Purchased Starter Pack
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      referenceId:
+        example: order_123
+        type: string
+      referenceType:
+        example: payment_order
+        type: string
+      transactionType:
+        example: purchase
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_monetization_dto.PaymentOrderResponse:
+    description: Payment order status
+    properties:
+      amount:
+        example: 9900
+        type: integer
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      creditsToAdd:
+        example: 55
+        type: integer
+      currency:
+        example: INR
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      paidAt:
+        example: "2024-01-01T00:05:00Z"
+        type: string
+      razorpayOrderId:
+        example: order_ABC123
+        type: string
+      status:
+        example: paid
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_monetization_dto.VerifyPaymentRequest:
+    description: Verify Razorpay payment after success
+    properties:
+      razorpayOrderId:
+        example: order_ABC123
+        type: string
+      razorpayPaymentId:
+        example: pay_XYZ789
+        type: string
+      razorpaySignature:
+        example: signature_hash
+        type: string
+    required:
+    - razorpayOrderId
+    - razorpayPaymentId
+    - razorpaySignature
+    type: object
+  github_com_UnoraApp_be_internal_monetization_dto.VerifyPaymentResponse:
+    description: Payment verification result
+    properties:
+      creditsAdded:
+        example: 55
+        type: integer
+      message:
+        example: Payment successful! 55 credits added.
+        type: string
+      newBalance:
+        example: 155
+        type: integer
+      success:
+        example: true
+        type: boolean
+      transactionId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.AddHobbyRequest:
+    description: Add hobby to profile
+    properties:
+      displayOrder:
+        example: 1
+        minimum: 0
+        type: integer
+      hobbyOptionId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      microDescription:
+        example: I love landscape photography
+        maxLength: 200
+        type: string
+    required:
+    - hobbyOptionId
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.CreateProfileRequest:
+    description: Create profile request
+    properties:
+      bio:
+        example: Passionate about hiking and photography
+        maxLength: 500
+        type: string
+      city:
+        example: Mumbai
+        maxLength: 100
+        type: string
+      dateOfBirth:
+        example: "1995-06-15"
+        type: string
+      firstName:
+        example: John
+        maxLength: 50
+        type: string
+      gender:
+        enum:
+        - male
+        - female
+        - non-binary
+        - prefer_not_to_say
+        example: male
+        type: string
+      intentStatement:
+        example: Looking for meaningful connections
+        maxLength: 200
+        type: string
+      lastName:
+        example: Doe
+        maxLength: 50
+        type: string
+    required:
+    - city
+    - dateOfBirth
+    - firstName
+    - gender
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.HobbyOptionResponse:
+    description: Available hobby option
+    properties:
+      category:
+        example: Creative
+        type: string
+      iconName:
+        example: camera
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      microDescriptions:
+        example:
+        - '["Amateur"'
+        - '"Professional"'
+        - '"Landscape"'
+        - '"Portrait"]'
+        items:
+          type: string
+        type: array
+      name:
+        example: Photography
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.HobbyResponse:
+    description: User's selected hobby
+    properties:
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      displayOrder:
+        example: 1
+        type: integer
+      hobbyOption:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.HobbyOptionResponse'
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      microDescription:
+        example: I love landscape photography
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.OnboardingStatusResponse:
+    description: Onboarding completion status for the user
+    properties:
+      hobbiesComplete:
+        example: true
+        type: boolean
+      hobbiesRequired:
+        example: 2
+        type: integer
+      hobbyCount:
+        example: 3
+        type: integer
+      isComplete:
+        example: false
+        type: boolean
+      photoCount:
+        example: 2
+        type: integer
+      photosComplete:
+        example: false
+        type: boolean
+      photosRequired:
+        example: 3
+        type: integer
+      profileComplete:
+        example: true
+        type: boolean
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.PhotoResponse:
+    description: User photo information
+    properties:
+      aiValidatedAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      aiValidationPassed:
+        example: true
+        type: boolean
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      displayOrder:
+        example: 1
+        type: integer
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      isFacePhoto:
+        example: true
+        type: boolean
+      storageKey:
+        example: photos/user-id/photo-1.jpg
+        type: string
+      url:
+        example: https://storage.example.com/photos/user-id/photo-1.jpg
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.ProfileResponse:
+    description: User profile information
+    properties:
+      bio:
+        example: Passionate about hiking
+        type: string
+      city:
+        example: Mumbai
+        type: string
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      dateOfBirth:
+        example: "1995-06-15T00:00:00Z"
+        type: string
+      firstName:
+        example: John
+        type: string
+      gender:
+        example: male
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      intentStatement:
+        example: Looking for meaningful connections
+        type: string
+      lastName:
+        example: Doe
+        type: string
+      updatedAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440001
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.RegisterPhotoRequest:
+    description: Register photo after successful upload
+    properties:
+      displayOrder:
+        example: 1
+        maximum: 6
+        minimum: 1
+        type: integer
+      isFacePhoto:
+        example: true
+        type: boolean
+      storageKey:
+        example: photos/user-id/photo-1.jpg
+        type: string
+    required:
+    - displayOrder
+    - storageKey
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.UpdatePhotoOrderRequest:
+    description: Update photo display order
+    properties:
+      displayOrder:
+        example: 2
+        maximum: 6
+        minimum: 1
+        type: integer
+    required:
+    - displayOrder
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.UpdateProfileRequest:
+    description: Update profile request
+    properties:
+      bio:
+        example: Updated bio
+        maxLength: 500
+        type: string
+      city:
+        example: Mumbai
+        maxLength: 100
+        type: string
+      dateOfBirth:
+        example: "1995-06-15"
+        type: string
+      firstName:
+        example: John
+        maxLength: 50
+        type: string
+      gender:
+        enum:
+        - male
+        - female
+        - non-binary
+        - prefer_not_to_say
+        example: male
+        type: string
+      intentStatement:
+        example: Updated intent
+        maxLength: 200
+        type: string
+      lastName:
+        example: Doe
+        maxLength: 50
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.UploadPhotoURLRequest:
+    description: Request presigned URL for photo upload
+    properties:
+      contentType:
+        example: image/jpeg
+        type: string
+      isFacePhoto:
+        example: true
+        type: boolean
+    required:
+    - contentType
+    type: object
+  github_com_UnoraApp_be_internal_profile_dto.UploadPhotoURLResponse:
+    description: Presigned URL for uploading photo to storage
+    properties:
+      expiresIn:
+        example: 1800
+        type: integer
+      storageKey:
+        example: photos/user-id/photo-1.jpg
+        type: string
+      uploadUrl:
+        example: https://storage.example.com/presigned-url...
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_reveal_dto.ConnectionRevealsResponse:
+    description: All reveals status for a connection
+    properties:
+      connectionId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      currentDay:
+        example: 5
+        type: integer
+      nextRevealDay:
+        example: 10
+        type: integer
+      reveals:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_reveal_dto.RevealResponse'
+        type: array
+      streakActive:
+        example: true
+        type: boolean
+    type: object
+  github_com_UnoraApp_be_internal_reveal_dto.RevealContentResponse:
+    description: AI-generated reveal content with insights
+    properties:
+      aiSummary:
+        example: Based on your conversations, you share a deep appreciation for...
+        type: string
+      compatibilityInsight:
+        example: Your communication styles complement each other well...
+        type: string
+      conversationStarters:
+        example:
+        - '["What made you interested in photography?"]'
+        items:
+          type: string
+        type: array
+      dimensionScores:
+        additionalProperties: true
+        type: object
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_reveal_dto.RevealMilestoneResponse:
+    description: Reveal milestone configuration
+    properties:
+      creditCost:
+        example: 0
+        type: integer
+      dayRequired:
+        example: 5
+        type: integer
+      description:
+        example: Discover your match's personality traits
+        type: string
+      iconName:
+        example: sparkles
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      revealNumber:
+        example: 1
+        type: integer
+      revealType:
+        example: personality
+        type: string
+      title:
+        example: Personality Reveal
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_reveal_dto.RevealResponse:
+    description: User's reveal status for a connection milestone
+    properties:
+      canUnlock:
+        example: true
+        type: boolean
+      connectionId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      content:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_reveal_dto.RevealContentResponse'
+      creditCost:
+        example: 0
+        type: integer
+      dayRequired:
+        example: 5
+        type: integer
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      revealNumber:
+        example: 1
+        type: integer
+      revealType:
+        example: personality
+        type: string
+      status:
+        example: unlocked
+        type: string
+      title:
+        example: Personality Reveal
+        type: string
+      unlockMethod:
+        example: earned
+        type: string
+      unlockedAt:
+        example: "2024-01-05T00:00:00Z"
+        type: string
+      viewedAt:
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_reveal_dto.UnlockRevealRequest:
+    description: Request to unlock a reveal
+    properties:
+      useCredits:
+        example: false
+        type: boolean
+    type: object
+  github_com_UnoraApp_be_internal_reveal_dto.UnlockRevealResponse:
+    description: Reveal unlock result
+    properties:
+      creditsUsed:
+        example: 0
+        type: integer
+      message:
+        example: Reveal unlocked! Check out your new insights.
+        type: string
+      remainingCredits:
+        example: 100
+        type: integer
+      reveal:
+        $ref: '#/definitions/github_com_UnoraApp_be_internal_reveal_dto.RevealResponse'
+      success:
+        example: true
+        type: boolean
+    type: object
+  github_com_UnoraApp_be_internal_safety_dto.BlockResponse:
+    description: User block record
+    properties:
+      blockedName:
+        example: John
+        type: string
+      blockedUserId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      unblockedAt:
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_safety_dto.BlockStatusResponse:
+    description: Block status check result
+    properties:
+      isBlocked:
+        example: true
+        type: boolean
+      isBlockedBy:
+        example: false
+        type: boolean
+    type: object
+  github_com_UnoraApp_be_internal_safety_dto.BlockUserRequest:
+    description: Block a user
+    properties:
+      reason:
+        example: Inappropriate messages
+        maxLength: 500
+        type: string
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - userId
+    type: object
+  github_com_UnoraApp_be_internal_safety_dto.BlockedUsersResponse:
+    description: List of blocked users
+    properties:
+      blocks:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_safety_dto.BlockResponse'
+        type: array
+      total:
+        example: 3
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_safety_dto.ReportResponse:
+    description: User report record
+    properties:
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      description:
+        example: User sent threatening messages
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      reason:
+        example: harassment
+        type: string
+      reportedUserId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      status:
+        example: pending
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_safety_dto.ReportUserRequest:
+    description: Report a user for policy violation
+    properties:
+      description:
+        example: User sent threatening messages
+        maxLength: 1000
+        type: string
+      reason:
+        enum:
+        - inappropriate_content
+        - harassment
+        - spam
+        - fake_profile
+        - underage
+        - offensive_behavior
+        - other
+        example: harassment
+        type: string
+      referenceId:
+        example: msg_123
+        maxLength: 36
+        type: string
+      referenceType:
+        example: message
+        maxLength: 50
+        type: string
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - reason
+    - userId
+    type: object
+  github_com_UnoraApp_be_internal_safety_dto.UnblockUserRequest:
+    description: Unblock a user
+    properties:
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - userId
+    type: object
+  github_com_UnoraApp_be_internal_streak_dto.CheckInRequest:
+    description: Daily check-in request
+    properties:
+      activity:
+        example: Had a great video call
+        maxLength: 200
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_streak_dto.CheckInResponse:
+    description: Check-in record
+    properties:
+      activity:
+        example: Had a video call
+        type: string
+      checkInType:
+        example: manual
+        type: string
+      createdAt:
+        example: "2024-01-05T00:00:00Z"
+        type: string
+      dayNumber:
+        example: 5
+        type: integer
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_streak_dto.NudgeResponse:
+    description: Nudge between streak partners
+    properties:
+      createdAt:
+        example: "2024-01-05T10:00:00Z"
+        type: string
+      dayNumber:
+        example: 5
+        type: integer
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      message:
+        example: Don't forget to check in!
+        type: string
+      seenAt:
+        type: string
+      senderId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      senderName:
+        example: John
+        type: string
+      status:
+        example: sent
+        type: string
+      streakId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_streak_dto.RecoverStreakRequest:
+    description: Request to recover a broken streak
+    properties:
+      payWithCredits:
+        example: true
+        type: boolean
+    type: object
+  github_com_UnoraApp_be_internal_streak_dto.RecoverStreakResponse:
+    description: Streak recovery result
+    properties:
+      message:
+        example: Streak recovered successfully!
+        type: string
+      newCredits:
+        example: 50
+        type: integer
+      streakRestored:
+        example: true
+        type: boolean
+      success:
+        example: true
+        type: boolean
+    type: object
+  github_com_UnoraApp_be_internal_streak_dto.RecoveryOptionsResponse:
+    description: Streak recovery pricing options
+    properties:
+      canRecover:
+        example: true
+        type: boolean
+      creditCost:
+        example: 50
+        type: integer
+      recoveryDeadline:
+        example: "2024-01-06T00:00:00Z"
+        type: string
+      userCredits:
+        example: 100
+        type: integer
+    type: object
+  github_com_UnoraApp_be_internal_streak_dto.SendNudgeRequest:
+    description: Send nudge to streak partner
+    properties:
+      message:
+        example: "Hey! Don't forget to check in today \U0001F4AA"
+        maxLength: 200
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_streak_dto.StreakResponse:
+    description: Streak details for a connection
+    properties:
+      checkIns:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.CheckInResponse'
+        type: array
+      completedAt:
+        type: string
+      connectionId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      createdAt:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      currentDay:
+        example: 5
+        type: integer
+      healthScore:
+        example: 0.85
+        type: number
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      myCheckInToday:
+        example: true
+        type: boolean
+      partnerCheckInToday:
+        example: false
+        type: boolean
+      recoveryDeadline:
+        type: string
+      resetCount:
+        example: 0
+        type: integer
+      state:
+        example: active
+        type: string
+      updatedAt:
+        example: "2024-01-05T00:00:00Z"
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_streak_dto.TodayStreakItem:
+    description: Streak item for today's check-in list
+    properties:
+      connectionId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      currentDay:
+        example: 5
+        type: integer
+      needsCheckIn:
+        example: true
+        type: boolean
+      partnerCheckedIn:
+        example: false
+        type: boolean
+      partnerName:
+        example: John
+        type: string
+      partnerPhotoUrl:
+        example: https://storage.example.com/photo.jpg
+        type: string
+      state:
+        example: active
+        type: string
+      streakId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  github_com_UnoraApp_be_internal_streak_dto.TodayStreaksResponse:
+    description: Today's streaks requiring check-in
+    properties:
+      streaks:
+        items:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.TodayStreakItem'
+        type: array
+      totalCompleted:
+        example: 1
+        type: integer
+      totalPending:
+        example: 2
+        type: integer
+    type: object
+  github_com_UnoraApp_be_pkg_response.APIError:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+  github_com_UnoraApp_be_pkg_response.APIResponse:
+    properties:
+      data: {}
+      error:
+        $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIError'
+      success:
+        type: boolean
+    type: object
+  internal_health.HealthResponse:
+    properties:
+      checks:
+        additionalProperties:
+          type: string
+        type: object
+      status:
+        example: healthy
+        type: string
+      timestamp:
+        example: "2026-01-14T12:00:00Z"
+        type: string
+      uptime:
+        example: 24h30m15s
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@unora.app
+    name: API Support
+    url: https://github.com/Unora-app/Backend
+  description: Backend API for Unora mobile application
+  license:
+    name: Private
+    url: https://github.com/Unora-app/Backend
+  termsOfService: http://swagger.io/terms/
+  title: Unora Backend API
+  version: 1.0.0
+paths:
+  /admin/audit-logs:
+    get:
+      description: Get paginated list of audit logs
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 50
+        description: Page size
+        in: query
+        name: pageSize
+        type: integer
+      - description: Action filter
+        in: query
+        name: action
+        type: string
+      - description: Resource type filter
+        in: query
+        name: resourceType
+        type: string
+      responses:
+        "200":
+          description: Audit logs
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AuditLogListResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: List audit logs
+      tags:
+      - admin
+  /admin/audit-logs/{logId}:
+    get:
+      description: Get audit log details
+      parameters:
+      - description: Log ID
+        in: path
+        name: logId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Audit log
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AuditLogResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: Get audit log
+      tags:
+      - admin
+  /admin/connections:
+    get:
+      description: Get paginated list of connections
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: pageSize
+        type: integer
+      - description: Connection status filter
+        in: query
+        name: status
+        type: string
+      responses:
+        "200":
+          description: Connections
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminConnectionListResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: List connections
+      tags:
+      - admin
+  /admin/connections/{connectionId}:
+    get:
+      description: Get connection details
+      parameters:
+      - description: Connection ID
+        in: path
+        name: connectionId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Connection
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminConnectionResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: Get connection
+      tags:
+      - admin
+  /admin/connections/{connectionId}/terminate:
+    post:
+      description: Terminate a connection
+      parameters:
+      - description: Connection ID
+        in: path
+        name: connectionId
+        required: true
+        type: string
+      - description: Termination reason
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.TerminateConnectionRequest'
+      responses:
+        "200":
+          description: Connection terminated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Terminate connection
+      tags:
+      - admin
+  /admin/credit-packages:
+    get:
+      consumes:
+      - application/json
+      description: Get all credit packages
+      parameters:
+      - default: false
+        description: Include inactive
+        in: query
+        name: includeInactive
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Credit packages
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: List credit packages
+      tags:
+      - admin
+  /admin/credit-packages/{packageId}:
+    patch:
+      consumes:
+      - application/json
+      description: Update a credit package
+      parameters:
+      - description: Package ID
+        in: path
+        name: packageId
+        required: true
+        type: string
+      - description: Package updates
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.UpdateCreditPackageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Package updated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Update credit package
+      tags:
+      - admin
+  /admin/dashboard:
+    get:
+      consumes:
+      - application/json
+      description: Get aggregated dashboard statistics
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Dashboard stats
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.DashboardStatsResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: Get dashboard stats
+      tags:
+      - admin
+  /admin/hobby-options:
+    get:
+      consumes:
+      - application/json
+      description: Get all hobby options
+      parameters:
+      - default: false
+        description: Include inactive
+        in: query
+        name: includeInactive
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Hobby options
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: List hobby options
+      tags:
+      - admin
+    post:
+      consumes:
+      - application/json
+      description: Create a new hobby option
+      parameters:
+      - description: Hobby option details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.CreateHobbyOptionRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Hobby option created
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Create hobby option
+      tags:
+      - admin
+  /admin/hobby-options/{optionId}:
+    delete:
+      consumes:
+      - application/json
+      description: Soft delete a hobby option
+      parameters:
+      - description: Hobby Option ID
+        in: path
+        name: optionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Hobby option deleted
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Delete hobby option
+      tags:
+      - admin
+  /admin/payments:
+    get:
+      description: Get paginated list of payment orders
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: pageSize
+        type: integer
+      - description: Order status filter
+        in: query
+        name: status
+        type: string
+      responses:
+        "200":
+          description: Payment orders
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminPaymentListResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: List payment orders
+      tags:
+      - admin
+  /admin/payments/{orderId}/refund:
+    post:
+      description: Mark payment as refunded and deduct credits
+      parameters:
+      - description: Order ID
+        in: path
+        name: orderId
+        required: true
+        type: string
+      - description: Refund reason
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.RefundPaymentRequest'
+      responses:
+        "200":
+          description: Payment refunded
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Refund payment
+      tags:
+      - admin
+  /admin/photos/{photoId}/approve:
+    post:
+      description: Approve a photo
+      parameters:
+      - description: Photo ID
+        in: path
+        name: photoId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Photo approved
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Approve photo
+      tags:
+      - admin
+  /admin/photos/{photoId}/reject:
+    post:
+      description: Reject and delete a photo
+      parameters:
+      - description: Photo ID
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: Rejection reason
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.RejectPhotoRequest'
+      responses:
+        "200":
+          description: Photo rejected
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Reject photo
+      tags:
+      - admin
+  /admin/photos/flagged:
+    get:
+      description: Get flagged photos
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: pageSize
+        type: integer
+      responses:
+        "200":
+          description: Flagged photos
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminPhotoListResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: List flagged photos
+      tags:
+      - admin
+  /admin/photos/pending:
+    get:
+      description: Get photos awaiting moderation
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: pageSize
+        type: integer
+      responses:
+        "200":
+          description: Pending photos
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminPhotoListResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: List pending photos
+      tags:
+      - admin
+  /admin/reports:
+    get:
+      consumes:
+      - application/json
+      description: Get paginated list of user reports
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: pageSize
+        type: integer
+      - description: Report status filter
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Reports
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminReportListResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: List reports
+      tags:
+      - admin
+  /admin/reports/{reportId}:
+    get:
+      consumes:
+      - application/json
+      description: Get detailed report information
+      parameters:
+      - description: Report ID
+        in: path
+        name: reportId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Report details
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminReportResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: Get report details
+      tags:
+      - admin
+  /admin/reports/{reportId}/review:
+    post:
+      consumes:
+      - application/json
+      description: Review a report and optionally take action
+      parameters:
+      - description: Report ID
+        in: path
+        name: reportId
+        required: true
+        type: string
+      - description: Review details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.ReviewReportRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Report reviewed
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Review report
+      tags:
+      - admin
+  /admin/reveal-milestones:
+    get:
+      description: Get all reveal milestones
+      parameters:
+      - default: false
+        description: Include inactive
+        in: query
+        name: includeInactive
+        type: boolean
+      responses:
+        "200":
+          description: Reveal milestones
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: List reveal milestones
+      tags:
+      - admin
+    post:
+      description: Create a new reveal milestone
+      parameters:
+      - description: Milestone details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.CreateRevealMilestoneRequest'
+      responses:
+        "201":
+          description: Milestone created
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Create reveal milestone
+      tags:
+      - admin
+  /admin/reveal-milestones/{milestoneId}:
+    delete:
+      description: Soft delete a reveal milestone
+      parameters:
+      - description: Milestone ID
+        in: path
+        name: milestoneId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Milestone deleted
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Delete reveal milestone
+      tags:
+      - admin
+    patch:
+      description: Update a reveal milestone
+      parameters:
+      - description: Milestone ID
+        in: path
+        name: milestoneId
+        required: true
+        type: string
+      - description: Milestone updates
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.UpdateRevealMilestoneRequest'
+      responses:
+        "200":
+          description: Milestone updated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Update reveal milestone
+      tags:
+      - admin
+  /admin/servers:
+    get:
+      description: Get all servers
+      responses:
+        "200":
+          description: Servers
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: List servers
+      tags:
+      - admin
+    post:
+      description: Create a new server
+      parameters:
+      - description: Server details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.CreateServerRequest'
+      responses:
+        "201":
+          description: Server created
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Create server
+      tags:
+      - admin
+  /admin/servers/{serverId}:
+    delete:
+      description: Delete a server
+      parameters:
+      - description: Server ID
+        in: path
+        name: serverId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Server deleted
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Delete server
+      tags:
+      - admin
+    patch:
+      description: Update a server
+      parameters:
+      - description: Server ID
+        in: path
+        name: serverId
+        required: true
+        type: string
+      - description: Server updates
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.UpdateServerRequest'
+      responses:
+        "200":
+          description: Server updated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Update server
+      tags:
+      - admin
+  /admin/streaks:
+    get:
+      description: Get paginated list of streaks
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: pageSize
+        type: integer
+      - description: Streak state filter
+        in: query
+        name: state
+        type: string
+      responses:
+        "200":
+          description: Streaks
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminStreakListResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: List streaks
+      tags:
+      - admin
+  /admin/streaks/{streakId}:
+    get:
+      description: Get streak details
+      parameters:
+      - description: Streak ID
+        in: path
+        name: streakId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Streak
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminStreakResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: Get streak
+      tags:
+      - admin
+  /admin/streaks/{streakId}/adjust:
+    post:
+      description: Adjust streak day
+      parameters:
+      - description: Streak ID
+        in: path
+        name: streakId
+        required: true
+        type: string
+      - description: Adjustment details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdjustStreakRequest'
+      responses:
+        "200":
+          description: Streak adjusted
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Adjust streak
+      tags:
+      - admin
+  /admin/streaks/{streakId}/reset:
+    post:
+      description: Reset streak to day 0
+      parameters:
+      - description: Streak ID
+        in: path
+        name: streakId
+        required: true
+        type: string
+      - description: Reset reason
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.ResetStreakRequest'
+      responses:
+        "200":
+          description: Streak reset
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Reset streak
+      tags:
+      - admin
+  /admin/users:
+    get:
+      consumes:
+      - application/json
+      description: Get paginated list of users with optional filters
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: pageSize
+        type: integer
+      - description: Account status filter
+        in: query
+        name: status
+        type: string
+      - description: Search by email or name
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Users
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminUserListResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: List users
+      tags:
+      - admin
+  /admin/users/{userId}:
+    delete:
+      consumes:
+      - application/json
+      description: Soft delete a user account
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User deleted
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Delete user
+      tags:
+      - admin
+    get:
+      consumes:
+      - application/json
+      description: Get detailed user information
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User details
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdminUserResponse'
+              type: object
+      security:
+      - AdminAPIKey: []
+      summary: Get user details
+      tags:
+      - admin
+  /admin/users/{userId}/credits:
+    post:
+      consumes:
+      - application/json
+      description: Add or deduct credits from user balance
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: string
+      - description: Credit adjustment
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.AdjustCreditsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Credits adjusted
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Adjust user credits
+      tags:
+      - admin
+  /admin/users/{userId}/suspend:
+    post:
+      consumes:
+      - application/json
+      description: Suspend a user account
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: string
+      - description: Suspension details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_admin_dto.SuspendUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User suspended
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Suspend user
+      tags:
+      - admin
+  /admin/users/{userId}/unsuspend:
+    post:
+      consumes:
+      - application/json
+      description: Reactivate a suspended user account
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User unsuspended
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - AdminAPIKey: []
+      summary: Unsuspend user
+      tags:
+      - admin
+  /auth/google:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user using Google ID token from mobile app. Returns
+        access token, refresh token, and user info.
+      parameters:
+      - description: Google ID Token from mobile app
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_auth_dto.GoogleOAuthRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Login successful
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_auth_dto.AuthResponse'
+              type: object
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Authentication failed - invalid token
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      summary: Login with Google OAuth
+      tags:
+      - auth
+  /auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: Revoke refresh token for the authenticated user. Requires valid
+        access token.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Logout successful
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Logout user
+      tags:
+      - auth
+  /auth/me:
+    get:
+      consumes:
+      - application/json
+      description: Returns the profile information of the currently authenticated
+        user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User information
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_auth_dto.TokenPayload'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get current user information
+      tags:
+      - auth
+  /auth/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Get a new access token using a valid refresh token. Use this when
+        access token expires.
+      parameters:
+      - description: Refresh token
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_auth_dto.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Token refreshed
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_auth_dto.RefreshTokenResponse'
+              type: object
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Invalid or expired refresh token
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      summary: Refresh access token
+      tags:
+      - auth
+  /blocks:
+    get:
+      consumes:
+      - application/json
+      description: Get list of users blocked by the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Blocked users
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_safety_dto.BlockedUsersResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get blocked users
+      tags:
+      - safety
+    post:
+      consumes:
+      - application/json
+      description: Block a user (also terminates connection and cancels interests)
+      parameters:
+      - description: User to block
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_safety_dto.BlockUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: User blocked
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_safety_dto.BlockResponse'
+              type: object
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Block user
+      tags:
+      - safety
+  /blocks/status/{userId}:
+    get:
+      consumes:
+      - application/json
+      description: Check if a user is blocked or blocking the authenticated user
+      parameters:
+      - description: User ID to check
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Block status
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_safety_dto.BlockStatusResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Check block status
+      tags:
+      - safety
+  /blocks/unblock:
+    post:
+      consumes:
+      - application/json
+      description: Unblock a previously blocked user
+      parameters:
+      - description: User to unblock
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_safety_dto.UnblockUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User unblocked
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+        "400":
+          description: User not blocked
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Unblock user
+      tags:
+      - safety
+  /connections:
+    get:
+      consumes:
+      - application/json
+      description: Get all active connections for the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Connections
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.ConnectionResponse'
+                  type: array
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get connections
+      tags:
+      - connections
+  /connections/{connectionId}/nudge:
+    post:
+      consumes:
+      - application/json
+      description: Send a nudge to streak partner
+      parameters:
+      - description: Connection ID
+        in: path
+        name: connectionId
+        required: true
+        type: string
+      - description: Nudge message
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.SendNudgeRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Nudge sent
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.NudgeResponse'
+              type: object
+        "400":
+          description: Already nudged today
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Send nudge
+      tags:
+      - streaks
+  /connections/{connectionId}/reveals:
+    get:
+      consumes:
+      - application/json
+      description: Get all reveals for a specific connection
+      parameters:
+      - description: Connection ID
+        in: path
+        name: connectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Connection reveals
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_reveal_dto.ConnectionRevealsResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "404":
+          description: Connection not found
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get connection reveals
+      tags:
+      - reveals
+  /connections/{connectionId}/reveals/{milestoneId}/unlock:
+    post:
+      consumes:
+      - application/json
+      description: Unlock a reveal milestone for a connection
+      parameters:
+      - description: Connection ID
+        in: path
+        name: connectionId
+        required: true
+        type: string
+      - description: Milestone ID
+        in: path
+        name: milestoneId
+        required: true
+        type: string
+      - description: Unlock options
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_reveal_dto.UnlockRevealRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Unlock result
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_reveal_dto.UnlockRevealResponse'
+              type: object
+        "400":
+          description: Cannot unlock or insufficient credits
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Unlock reveal
+      tags:
+      - reveals
+  /connections/{connectionId}/streak:
+    get:
+      consumes:
+      - application/json
+      description: Get streak details for a connection
+      parameters:
+      - description: Connection ID
+        in: path
+        name: connectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Streak details
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.StreakResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "404":
+          description: Streak not found
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get streak
+      tags:
+      - streaks
+  /connections/{connectionId}/streak/check-in:
+    post:
+      consumes:
+      - application/json
+      description: Perform daily check-in for a streak
+      parameters:
+      - description: Connection ID
+        in: path
+        name: connectionId
+        required: true
+        type: string
+      - description: Check-in data
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.CheckInRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Check-in created
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.CheckInResponse'
+              type: object
+        "400":
+          description: Already checked in or streak not active
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Daily check-in
+      tags:
+      - streaks
+  /connections/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Terminate an active connection
+      parameters:
+      - description: Connection ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Connection terminated
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Terminate connection
+      tags:
+      - connections
+    get:
+      consumes:
+      - application/json
+      description: Get detailed information about a specific connection
+      parameters:
+      - description: Connection ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Connection details
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.ConnectionDetailResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "404":
+          description: Connection not found
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get connection details
+      tags:
+      - connections
+  /credit-packages:
+    get:
+      consumes:
+      - application/json
+      description: Get all available credit packages for purchase
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Credit packages
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_monetization_dto.CreditPackageResponse'
+                  type: array
+              type: object
+      summary: Get credit packages
+      tags:
+      - credits
+  /credits/balance:
+    get:
+      consumes:
+      - application/json
+      description: Get user's credit balance and lifetime stats
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Credit balance
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_monetization_dto.CreditBalanceResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get credit balance
+      tags:
+      - credits
+  /credits/transactions:
+    get:
+      consumes:
+      - application/json
+      description: Get user's credit transaction history
+      parameters:
+      - description: Number of transactions (default 50)
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Transactions
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_monetization_dto.CreditTransactionResponse'
+                  type: array
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get transaction history
+      tags:
+      - credits
+  /discover/refresh-status:
+    get:
+      consumes:
+      - application/json
+      description: Check if discovery refresh is available
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Refresh status
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.RefreshStatusResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get refresh status
+      tags:
+      - discovery
+  /healthz:
+    get:
+      description: Basic health check - returns OK if service is running
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_health.HealthResponse'
+      summary: Health check
+      tags:
+      - health
+  /hobbies:
+    get:
+      consumes:
+      - application/json
+      description: Get all hobbies for the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User hobbies
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.HobbyResponse'
+                  type: array
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get user hobbies
+      tags:
+      - hobbies
+    post:
+      consumes:
+      - application/json
+      description: Add a hobby to user's profile
+      parameters:
+      - description: Hobby data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.AddHobbyRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Hobby added
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.HobbyResponse'
+              type: object
+        "400":
+          description: Invalid request body or hobby already added
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Add hobby
+      tags:
+      - hobbies
+  /hobbies/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Remove a hobby from user's profile
+      parameters:
+      - description: Hobby ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Hobby deleted
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete hobby
+      tags:
+      - hobbies
+  /hobby-options:
+    get:
+      consumes:
+      - application/json
+      description: Get all available hobby options
+      parameters:
+      - description: Filter by category
+        in: query
+        name: category
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Hobby options
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.HobbyOptionResponse'
+                  type: array
+              type: object
+      summary: Get hobby options
+      tags:
+      - hobbies
+  /interests:
+    post:
+      consumes:
+      - application/json
+      description: Express interest in a user from a discovery card
+      parameters:
+      - description: Interest data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.ExpressInterestRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Interest created
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.InterestResponse'
+              type: object
+        "400":
+          description: Invalid request or already interested
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Express interest
+      tags:
+      - interests
+  /interests/received:
+    get:
+      consumes:
+      - application/json
+      description: Get pending interests received by the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Received interests
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.InterestResponse'
+                  type: array
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get received interests
+      tags:
+      - interests
+  /interests/sent:
+    get:
+      consumes:
+      - application/json
+      description: Get interests sent by the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Sent interests
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.InterestResponse'
+                  type: array
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get sent interests
+      tags:
+      - interests
+  /livez:
+    get:
+      description: Simple liveness probe for Kubernetes
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Liveness check
+      tags:
+      - health
+  /nudges/received:
+    get:
+      consumes:
+      - application/json
+      description: Get nudges received by the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Received nudges
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.NudgeResponse'
+                  type: array
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get received nudges
+      tags:
+      - streaks
+  /payments/create-order:
+    post:
+      consumes:
+      - application/json
+      description: Create a Razorpay order for credit package purchase
+      parameters:
+      - description: Package to purchase
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_monetization_dto.CreateOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Order details
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_monetization_dto.CreateOrderResponse'
+              type: object
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create payment order
+      tags:
+      - payments
+  /payments/orders:
+    get:
+      consumes:
+      - application/json
+      description: Get user's payment order history
+      parameters:
+      - description: Number of orders (default 20)
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Payment orders
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_monetization_dto.PaymentOrderResponse'
+                  type: array
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get payment orders
+      tags:
+      - payments
+  /payments/verify:
+    post:
+      consumes:
+      - application/json
+      description: Verify Razorpay payment and add credits
+      parameters:
+      - description: Payment verification data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_monetization_dto.VerifyPaymentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Verification result
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_monetization_dto.VerifyPaymentResponse'
+              type: object
+        "400":
+          description: Verification failed
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Verify payment
+      tags:
+      - payments
+  /payments/webhook:
+    post:
+      consumes:
+      - application/json
+      description: Handle Razorpay webhook events
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Webhook processed
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      summary: Razorpay webhook
+      tags:
+      - payments
+  /photos:
+    get:
+      consumes:
+      - application/json
+      description: Get all photos for the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User photos
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.PhotoResponse'
+                  type: array
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get user photos
+      tags:
+      - photos
+    post:
+      consumes:
+      - application/json
+      description: Register a photo after successful upload to storage
+      parameters:
+      - description: Photo registration data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.RegisterPhotoRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Photo registered
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.PhotoResponse'
+              type: object
+        "400":
+          description: Invalid request body or max photos reached
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Register uploaded photo
+      tags:
+      - photos
+  /photos/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a photo from user's profile
+      parameters:
+      - description: Photo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Photo deleted
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "404":
+          description: Photo not found
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete photo
+      tags:
+      - photos
+  /photos/{id}/order:
+    put:
+      consumes:
+      - application/json
+      description: Update the display order of a photo
+      parameters:
+      - description: Photo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: New order
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.UpdatePhotoOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Photo updated
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.PhotoResponse'
+              type: object
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "404":
+          description: Photo not found
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update photo order
+      tags:
+      - photos
+  /photos/upload-url:
+    post:
+      consumes:
+      - application/json
+      description: Get a presigned URL for uploading a photo
+      parameters:
+      - description: Upload request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.UploadPhotoURLRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Upload URL
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.UploadPhotoURLResponse'
+              type: object
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get photo upload URL
+      tags:
+      - photos
+  /profile:
+    delete:
+      consumes:
+      - application/json
+      description: Soft delete the authenticated user's profile
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Profile deleted
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete user profile
+      tags:
+      - profile
+    get:
+      consumes:
+      - application/json
+      description: Get the authenticated user's profile
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Profile data
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.ProfileResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "404":
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get user profile
+      tags:
+      - profile
+    post:
+      consumes:
+      - application/json
+      description: Create a new profile for the authenticated user
+      parameters:
+      - description: Profile data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.CreateProfileRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Profile created
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.ProfileResponse'
+              type: object
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "409":
+          description: Profile already exists
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create user profile
+      tags:
+      - profile
+    put:
+      consumes:
+      - application/json
+      description: Update the authenticated user's profile
+      parameters:
+      - description: Profile update data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.UpdateProfileRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Profile updated
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.ProfileResponse'
+              type: object
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "404":
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update user profile
+      tags:
+      - profile
+  /profile/onboarding-status:
+    get:
+      consumes:
+      - application/json
+      description: Get the onboarding completion status for the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Onboarding status
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_profile_dto.OnboardingStatusResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get onboarding status
+      tags:
+      - profile
+  /readyz:
+    get:
+      description: Checks if service is ready to accept traffic (DB, Redis connectivity)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_health.HealthResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/internal_health.HealthResponse'
+      summary: Readiness check
+      tags:
+      - health
+  /reports:
+    post:
+      consumes:
+      - application/json
+      description: Report a user for policy violation
+      parameters:
+      - description: Report details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_safety_dto.ReportUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Report submitted
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_safety_dto.ReportResponse'
+              type: object
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Report user
+      tags:
+      - safety
+  /reveal-milestones:
+    get:
+      consumes:
+      - application/json
+      description: Get all reveal milestone configurations
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Milestones
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_reveal_dto.RevealMilestoneResponse'
+                  type: array
+              type: object
+      summary: Get reveal milestones
+      tags:
+      - reveals
+  /reveals/{revealId}/viewed:
+    post:
+      consumes:
+      - application/json
+      description: Mark a reveal as viewed
+      parameters:
+      - description: Reveal ID
+        in: path
+        name: revealId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "404":
+          description: Reveal not found
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Mark reveal viewed
+      tags:
+      - reveals
+  /servers:
+    get:
+      consumes:
+      - application/json
+      description: Get all available server types (partner/friend/growth)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Server list
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.ServerResponse'
+                  type: array
+              type: object
+      summary: Get servers
+      tags:
+      - servers
+  /servers/{serverType}/discover:
+    get:
+      consumes:
+      - application/json
+      description: Get current batch of discovery cards for a server type
+      parameters:
+      - description: Server type (partner/friend/growth)
+        in: path
+        name: serverType
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Discovery batch
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.DiscoveryBatchResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get discovery cards
+      tags:
+      - discovery
+  /servers/{serverType}/discover/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Trigger a new discovery batch (respects global 24h cooldown)
+      parameters:
+      - description: Server type (partner/friend/growth)
+        in: path
+        name: serverType
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: New batch
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.DiscoveryBatchResponse'
+              type: object
+        "400":
+          description: Refresh not available yet
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Refresh discovery
+      tags:
+      - discovery
+  /servers/{serverType}/filters:
+    get:
+      consumes:
+      - application/json
+      description: Get user's filter settings for a server type
+      parameters:
+      - description: Server type (partner/friend/growth)
+        in: path
+        name: serverType
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Filter settings
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.FilterResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get filter
+      tags:
+      - filters
+    put:
+      consumes:
+      - application/json
+      description: Update user's filter settings for a server type
+      parameters:
+      - description: Server type (partner/friend/growth)
+        in: path
+        name: serverType
+        required: true
+        type: string
+      - description: Filter config
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.UpdateFilterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated filter
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_discovery_dto.FilterResponse'
+              type: object
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update filter
+      tags:
+      - filters
+  /streaks/{streakId}/recover:
+    post:
+      consumes:
+      - application/json
+      description: Recover a broken streak using credits
+      parameters:
+      - description: Streak ID
+        in: path
+        name: streakId
+        required: true
+        type: string
+      - description: Recovery request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.RecoverStreakRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Recovery result
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.RecoverStreakResponse'
+              type: object
+        "400":
+          description: Cannot recover or insufficient credits
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Recover streak
+      tags:
+      - streaks
+  /streaks/{streakId}/recovery-options:
+    get:
+      consumes:
+      - application/json
+      description: Get available options for recovering a broken streak
+      parameters:
+      - description: Streak ID
+        in: path
+        name: streakId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Recovery options
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.RecoveryOptionsResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+        "404":
+          description: Streak not found
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get recovery options
+      tags:
+      - streaks
+  /streaks/today:
+    get:
+      consumes:
+      - application/json
+      description: Get all streaks requiring check-in today
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Today's streaks
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_UnoraApp_be_internal_streak_dto.TodayStreaksResponse'
+              type: object
+        "401":
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/github_com_UnoraApp_be_pkg_response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get today's streaks
+      tags:
+      - streaks
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and the access token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

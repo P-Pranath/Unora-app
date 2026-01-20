@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobby Intelligence Engine - Test Console</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0c;
+            --bg-secondary: #111114;
+            --bg-card: #16161a;
+            --bg-input: #1a1a1f;
+            --border: #2a2a32;
+            --border-focus: #5865f2;
+            --text-primary: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #5865f2;
+            --accent-hover: #4752c4;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --gradient: linear-gradient(135deg, #5865f2 0%, #8b5cf6 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+            display: inline-flex;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.connected { background: var(--success); }
+        .status-dot.error { background: var(--error); }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .card-icon.validate { background: linear-gradient(135deg, #22c55e20, #22c55e40); }
+        .card-icon.classify { background: linear-gradient(135deg, #3b82f620, #3b82f640); }
+        .card-icon.question { background: linear-gradient(135deg, #f59e0b20, #f59e0b40); }
+        .card-icon.echo { background: linear-gradient(135deg, #8b5cf620, #8b5cf640); }
+        .card-icon.pipeline { background: var(--gradient); }
+
+        .card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .card .endpoint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.2);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .response-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .response-box.visible {
+            display: block;
+        }
+
+        .response-box pre {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .response-box.success { border-color: var(--success); }
+        .response-box.error { border-color: var(--error); }
+
+        .json-key { color: #7dd3fc; }
+        .json-string { color: #86efac; }
+        .json-number { color: #fcd34d; }
+        .json-boolean { color: #c4b5fd; }
+        .json-null { color: var(--text-muted); }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .pipeline-card {
+            grid-column: 1 / -1;
+        }
+
+        .pipeline-steps {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .step-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .step-badge.active { border-color: var(--accent); color: var(--accent); }
+        .step-badge.success { border-color: var(--success); color: var(--success); }
+        .step-badge.error { border-color: var(--error); color: var(--error); }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Hobby Intelligence Engine</h1>
+            <p>Test console for validating, classifying, and generating hobby check-ins</p>
+            <div class="status-bar">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">Checking connection...</span>
+            </div>
+        </header>
+
+        <div class="grid">
+            <!-- Validate Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon validate">✓</div>
+                    <div>
+                        <h3>Validate Hobby</h3>
+                        <span class="endpoint">POST /validate</span>
+                    </div>
+                </div>
+                <form id="validateForm">
+                    <div class="form-group">
+                        <label for="validateHobby">Hobby Name</label>
+                        <input type="text" id="validateHobby" placeholder="e.g., painting, photography, yoga" required>
+                    </div>
+                    <button type="submit">Validate</button>
+                </form>
+                <div class="response-box" id="validateResponse"></div>
+            </div>
+
+            <!-- Classify Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon classify">📊</div>
+                    <div>
+                        <h3>Classify Hobby</h3>
+                        <span class="endpoint">POST /classify</span>
+                    </div>
+                </div>
+                <form id="classifyForm">
+                    <div class="form-group">
+                        <label for="classifyHobby">Hobby Name</label>
+                        <input type="text" id="classifyHobby" placeholder="e.g., rock climbing, cooking" required>
+                    </div>
+                    <button type="submit">Classify</button>
+                </form>
+                <div class="response-box" id="classifyResponse"></div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon question">❓</div>
+                    <div>
+                        <h3>Generate Question</h3>
+                        <span class="endpoint">POST /question</span>
+                    </div>
+                </div>
+                <form id="questionForm">
+                    <div class="form-group">
+                        <label for="questionHobby">Hobby Name</label>
+                        <input type="text" id="questionHobby" placeholder="e.g., gardening" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="questionCategory">Category</label>
+                        <select id="questionCategory">
+                            <option value="Creative">Creative</option>
+                            <option value="Physical">Physical</option>
+                            <option value="Intellectual">Intellectual</option>
+                            <option value="Social">Social</option>
+                            <option value="Lifestyle">Lifestyle</option>
+                        </select>
+                    </div>
+                    <button type="submit">Generate</button>
+                </form>
+                <div class="response-box" id="questionResponse"></div>
+            </div>
+
+            <!-- Echo Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon echo">💬</div>
+                    <div>
+                        <h3>Generate Echo</h3>
+                        <span class="endpoint">POST /echo</span>
+                    </div>
+                </div>
+                <form id="echoForm">
+                    <div class="form-group">
+                        <label for="echoHobby">Hobby Name</label>
+                        <input type="text" id="echoHobby" placeholder="e.g., painting" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="echoOption">Selected Option</label>
+                        <input type="text" id="echoOption" placeholder="e.g., Landscape, 30 minutes" required>
+                    </div>
+                    <button type="submit">Generate Echo</button>
+                </form>
+                <div class="response-box" id="echoResponse"></div>
+            </div>
+
+            <!-- Pipeline Card -->
+            <div class="card pipeline-card">
+                <div class="card-header">
+                    <div class="card-icon pipeline">🚀</div>
+                    <div>
+                        <h3>Full Pipeline</h3>
+                        <span class="endpoint">POST /pipeline</span>
+                    </div>
+                </div>
+                <form id="pipelineForm">
+                    <div class="form-group">
+                        <label for="pipelineHobby">Hobby Name</label>
+                        <input type="text" id="pipelineHobby" placeholder="e.g., urban sketching, hiking, chess" required>
+                    </div>
+                    <button type="submit">Run Pipeline</button>
+                </form>
+                <div class="pipeline-steps" id="pipelineSteps">
+                    <span class="step-badge" id="step1">1. Validate</span>
+                    <span class="step-badge" id="step2">2. Classify</span>
+                    <span class="step-badge" id="step3">3. Question</span>
+                </div>
+                <div class="response-box" id="pipelineResponse"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Hobby Intelligence Engine • Powered by OpenAI GPT-4o-mini</p>
+        </footer>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+
+        // Syntax highlighting for JSON
+        function syntaxHighlight(json) {
+            if (typeof json !== 'string') {
+                json = JSON.stringify(json, null, 2);
+            }
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, (match) => {
+                let cls = 'json-number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return `<span class="${cls}">${match}</span>`;
+            });
+        }
+
+        // Check API health
+        async function checkHealth() {
+            const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
+            try {
+                const res = await fetch(`${API_BASE}/health`);
+                if (res.ok) {
+                    dot.className = 'status-dot connected';
+                    text.textContent = 'Connected to API';
+                } else {
+                    throw new Error('Not OK');
+                }
+            } catch {
+                dot.className = 'status-dot error';
+                text.textContent = 'API Disconnected - Start server with: npm run dev';
+            }
+        }
+
+        // Generic API call function
+        async function callAPI(endpoint, body, responseId, button) {
+            const responseBox = document.getElementById(responseId);
+            const originalText = button.innerHTML;
+            
+            button.disabled = true;
+            button.innerHTML = `<span class="loading"></span>Processing...`;
+            responseBox.classList.add('visible');
+            responseBox.classList.remove('success', 'error');
+            responseBox.innerHTML = '<pre>Loading...</pre>';
+
+            try {
+                const res = await fetch(`${API_BASE}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                
+                const data = await res.json();
+                responseBox.classList.add(res.ok ? 'success' : 'error');
+                responseBox.innerHTML = `<pre>${syntaxHighlight(data)}</pre>`;
+                return data;
+            } catch (err) {
+                responseBox.classList.add('error');
+                responseBox.innerHTML = `<pre>Error: ${err.message}</pre>`;
+                return null;
+            } finally {
+                button.disabled = false;
+                button.innerHTML = originalText;
+            }
+        }
+
+        // Form handlers
+        document.getElementById('validateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const hobby = document.getElementById('validateHobby').value;
+            await callAPI('/validate', { hobby }, 'validateResponse', e.target.querySelector('button'));
+        });
+
+        document.getElementById('classifyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const hobby = document.getElementById('classifyHobby').value;
+            await callAPI('/classify', { hobby }, 'classifyResponse', e.target.querySelector('button'));
+        });
+
+        document.getElementById('questionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const hobby = document.getElementById('questionHobby').value;
+            const category = document.getElementById('questionCategory').value;
+            await callAPI('/question', { hobby, category, previous_questions: [] }, 'questionResponse', e.target.querySelector('button'));
+        });
+
+        document.getElementById('echoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const hobby = document.getElementById('echoHobby').value;
+            const selected_option = document.getElementById('echoOption').value;
+            await callAPI('/echo', { hobby, selected_option }, 'echoResponse', e.target.querySelector('button'));
+        });
+
+        document.getElementById('pipelineForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const hobby = document.getElementById('pipelineHobby').value;
+            const steps = ['step1', 'step2', 'step3'];
+            
+            // Reset steps
+            steps.forEach(s => document.getElementById(s).className = 'step-badge');
+            document.getElementById('step1').classList.add('active');
+            
+            const data = await callAPI('/pipeline', { hobby, previous_questions: [] }, 'pipelineResponse', e.target.querySelector('button'));
+            
+            if (data) {
+                if (data.validation?.legit === false) {
+                    document.getElementById('step1').className = 'step-badge error';
+                } else {
+                    document.getElementById('step1').className = 'step-badge success';
+                    if (data.classification) {
+                        document.getElementById('step2').className = 'step-badge success';
+                    }
+                    if (data.question) {
+                        document.getElementById('step3').className = 'step-badge success';
+                    }
+                }
+            }
+        });
+
+        // Initial health check
+        checkHealth();
+        setInterval(checkHealth, 10000);
+    </script>
+</body>
+</html>

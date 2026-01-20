@@ -1,0 +1,12 @@
+# Feature modules directory
+# Create feature folders following the structure:
+#
+# features/[feature-name]/
+# ├── screens/              # Screen components
+# ├── components/           # Feature-specific components
+# ├── api/                  # React Query hooks
+# ├── hooks/                # Feature-specific hooks
+# ├── store/                # Zustand store (if needed)
+# ├── types/                # TypeScript types
+# └── index.ts              # Public API
+

@@ -1,0 +1,38 @@
+networks:
+    backend:
+        driver: bridge
+
+services:
+    server:
+        image: ${DOCKER_REGISTRY:-ghcr.io}/be-server:${VERSION:-latest}
+        container_name: server-prod
+        env_file:
+            - ../.env
+        ports:
+            - "8080:8080"
+        networks:
+            - backend
+        restart: always
+        healthcheck:
+            test: ["CMD-SHELL", "nc -z localhost 8080 || exit 1"]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+
+    worker:
+        image: ${DOCKER_REGISTRY:-ghcr.io}/be-worker:${VERSION:-latest}
+        container_name: worker-prod
+        env_file:
+            - ../.env
+        networks:
+            - backend
+        restart: always
+
+    cron:
+        image: ${DOCKER_REGISTRY:-ghcr.io}/be-cron:${VERSION:-latest}
+        container_name: cron-prod
+        env_file:
+            - ../.env
+        networks:
+            - backend
+        restart: always

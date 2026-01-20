@@ -1,0 +1,15 @@
+.git
+.gitignore
+.env
+.env.*
+*.md
+!README.md
+tmp/
+bin/
+build/
+dist/
+node_modules/
+.idea/
+.vscode/
+*.test
+*.out

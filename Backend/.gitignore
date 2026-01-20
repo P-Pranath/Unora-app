@@ -1,0 +1,65 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories
+# vendor/
+
+# Go workspace file
+go.work
+
+# Environment and configuration files with sensitive data
+.env
+.env.local
+.env.*.local
+.env.old
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build artifacts
+bin/
+tmp/
+temp/
+build/
+dist/
+
+# Generated files
+*.gen.go
+
+# Secrets
+.secrets
+configs/*
+
+# Node modules (for commitlint)
+node_modules/
+
+# Air tmp directory
+tmp/
+
+# Binary files
+server
+worker
+cron
+

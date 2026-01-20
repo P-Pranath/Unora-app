@@ -1,0 +1,18 @@
+How to Run the Personality Service
+1. Open Terminal in the project folder
+cd c:\Unora\AI\personality-service
+2. Start the server
+cmd /c "npm run dev"
+3. Open the Test UI
+Open this file in your browser:
+
+c:\Unora\AI\personality-service\test-ui.html
+That's it! The server runs at http://localhost:3000 and the test UI lets you click through questions and see your personality summary.
+
+Note: Make sure your 
+.env
+ file has a valid OPENAI_API_KEY for the summary generation to work.
+
+----------------------DB-------------
+npm run db:reset
+npx prisma studio, http://localhost:5555

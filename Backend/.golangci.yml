@@ -1,0 +1,44 @@
+run:
+  timeout: 5m
+  skip-dirs:
+    - docker
+    - ent
+    - migrations
+    - node_modules
+    - tmp
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - staticcheck
+    - unused
+    - gosimple
+    - ineffassign
+    - typecheck
+  disable:
+    - structcheck
+    - deadcode
+    - varcheck
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+  govet:
+    check-shadowing: false
+  staticcheck:
+    checks:
+      - all
+      - '-SA1019' # Using deprecated function is fine for now
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck
+    - path: ent/
+      linters:
+        - all
+    - path: docker/
+      linters:
+        - all
