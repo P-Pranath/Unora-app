@@ -1,12 +1,13 @@
 <p align="center">
-  <img src="./Images/logo.png" alt="Unora – Some things are worth waiting for" width="400"/>
+  <img src="./Images/logo.png" alt="Unora – Some things are worth waiting for" width="200"/>
 </p>
 
-<h1 align="center">Unora</h1>
-
-<p align="center">
+<div align="center">
+  <strong style="font-size: 2.3rem; line-height: 1.2;">Unora</strong><br />
   <em>Some things are worth waiting for</em>
-</p>
+</div>
+
+</br>
 
 ## What Unora Is
 
@@ -202,3 +203,7 @@ The learnings compound far beyond this product.
 
 Built end-to-end by **Pranath P**  
 Product systems · Intentional design · AI-first execution
+
+<p align="center">
+  <img src="./Images/Caveat.png" alt="Unora – Some things are worth waiting for" width="2000" height="300"/>
+</p>
