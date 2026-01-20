@@ -3,7 +3,7 @@
 </p>
 
 <div align="center">
-  <strong style="font-size: 2.3rem; line-height: 1.2;">Unora</strong><br />
+  <strong style="font-size: 2.3rem; line-height: 1.5;">Unora</strong><br />
   <em>Some things are worth waiting for</em>
 </div>
 
